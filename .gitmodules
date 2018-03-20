@@ -1,0 +1,4 @@
+[submodule "LadyLib"]
+	path = LadyLib
+	url = https://github.com/Pyrofab/LadyLib.git
+	branch = great-refactor
