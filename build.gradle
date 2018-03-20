@@ -19,17 +19,35 @@ archivesBaseName = modBaseName
 
 sourceCompatibility = 1.8
 
-ext.ladylib = "./Ladylib"
+/* * * * LadyLib-specific integration * * * */
+ext.ladylibJava = "./Ladylib/java"
+ext.ladylibResources = "./Ladylib/resources"
+
+sourceSets {
+    main {
+		java {
+			srcDir project.ladylibJava
+		}
+        resources {
+            srcDir project.ladylibResources
+        }
+    }
+}
+
+task setupSubmodules(type: Exec) {
+    commandLine 'git', 'submodule', 'update'
+}
+
+setupDecompWorkspace.dependsOn(setupSubmodules)
+/* * * * * * * * * * * * * * * * * * * * * * */
 
 sourceSets {
     main {
         jar {
+            // do not package test mods in the resulting jar
             exclude 'testmod/**'
             exclude 'assets/test_mod/**'
         }
-		java {
-			srcDir project.ladylib
-		}
     }
 }
 
@@ -57,7 +75,7 @@ repositories {
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
     deobfCompile "mezz.jei:jei_${mcVersion}:${jeiVersion}:api"
-//    runtime "mezz.jei:jei_${mcVersion}:${jeiVersion}"
+    runtime "mezz.jei:jei_${mcVersion}:${jeiVersion}"
 }
 
 processResources {
