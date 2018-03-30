@@ -25,20 +25,35 @@ ext.ladylibResources = "./Ladylib/resources"
 
 sourceSets {
     main {
-		java {
-			srcDir project.ladylibJava
-		}
+        java {
+            srcDir project.ladylibJava
+        }
         resources {
             srcDir project.ladylibResources
         }
     }
 }
 
-task setupSubmodules(type: Exec) {
+reobfJar {
+    // prevents classloading issues when multiple mods shade ladylib
+    addExtraSrgLine "PK: ladylib ladysnake/${modBaseName}/ladylib"
+}
+
+task initSubmodules(type: Exec) {
+    if (new File('LadyLib').exists()) {
+        commandLine 'git', 'submodule', 'init'
+    }
+    else {
+        commandLine 'git', 'submodule', 'add', 'https://github.com/Pyrofab/LadyLib.git', 'LadyLib'
+    }
+}
+
+task updateSubmodules(type: Exec) {
     commandLine 'git', 'submodule', 'update'
 }
 
-setupDecompWorkspace.dependsOn(setupSubmodules)
+updateSubmodules.dependsOn(initSubmodules)
+setupDecompWorkspace.dependsOn(updateSubmodules)
 /* * * * * * * * * * * * * * * * * * * * * * */
 
 sourceSets {
