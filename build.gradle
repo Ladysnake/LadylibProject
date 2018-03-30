@@ -53,7 +53,7 @@ task updateSubmodules(type: Exec) {
 }
 
 updateSubmodules.dependsOn(initSubmodules)
-setupDecompWorkspace.dependsOn(updateSubmodules)
+compileJava.dependsOn(updateSubmodules)
 /* * * * * * * * * * * * * * * * * * * * * * */
 
 sourceSets {

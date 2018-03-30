@@ -1,6 +1,7 @@
 package testmod;
 
 import ladylib.LadyLib;
+import ladylib.misc.TemplateUtil;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -14,14 +15,13 @@ public class TestMod {
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
-        lib = LadyLib.newLibInstance(event);
-        lib.clientInit(() -> Configuration.client.maxParticles);
+        lib = LadyLib.initLib(event);
         lib.makeCreativeTab(() -> new ItemStack(ModItems.TEST));
     }
 
     @Mod.EventHandler
     public void init(FMLInitializationEvent event) {
-        lib.getRegistrar().getItemRegistrar().generateStubModels("../src/main/resources");
+//        TemplateUtil.generateStubModels("../src/main/resources");
     }
 
 }
