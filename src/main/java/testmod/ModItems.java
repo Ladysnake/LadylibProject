@@ -10,5 +10,6 @@ public class ModItems {
     public static final Item TEST = new Item();
     @AutoRegister.Unlisted
     public static final Item HIDDEN = new Item();
-    public static final Item GENERATED = new Item();
+    public static final Item GENERATED = new ItemMagicBackpack();
+    public static final Item MANA_ORB = new ItemManaOrb();
 }

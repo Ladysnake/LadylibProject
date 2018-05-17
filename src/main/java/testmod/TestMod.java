@@ -1,5 +1,6 @@
 package testmod;
 
+import ladylib.LLibContainer;
 import ladylib.LadyLib;
 import ladylib.misc.TemplateUtil;
 import net.minecraft.item.ItemStack;
@@ -11,17 +12,18 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 public class TestMod {
 
     public static final String MODID = "test_mod";
-    private LadyLib lib;
+
+    @LadyLib.LLInstance
+    public static LLibContainer lib;
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
-        lib = LadyLib.initLib(event);
         lib.makeCreativeTab(() -> new ItemStack(ModItems.TEST));
     }
 
     @Mod.EventHandler
     public void init(FMLInitializationEvent event) {
-//        TemplateUtil.generateStubModels("../src/main/resources");
+        TemplateUtil.generateStubModels(MODID, "../src/main/resources");
     }
 
 }
