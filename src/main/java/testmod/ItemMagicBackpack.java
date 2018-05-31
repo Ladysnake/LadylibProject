@@ -23,9 +23,12 @@ public class ItemMagicBackpack extends Item {
                 NonNullList<ItemStack> mainInventory = playerIn.inventory.mainInventory;
                 for (int i = 0; i < mainInventory.size(); i++) {
                     ItemStack stack = mainInventory.get(i);
-                    if (cap.getMana() <= 0) break;
-                    if (stack.isEmpty() || playerIn.getHeldItem(handIn) == stack || stack.getItem() instanceof ItemManaOrb)
+                    if (cap.getMana() <= 0) {
+                        break;
+                    }
+                    if (stack.isEmpty() || playerIn.getHeldItem(handIn) == stack || stack.getItem() instanceof ItemManaOrb) {
                         continue;
+                    }
                     backpack.addItemStack(stack);
                     mainInventory.set(i, ItemStack.EMPTY);
                     cap.addMana(-1);
